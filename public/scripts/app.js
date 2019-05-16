@@ -5,52 +5,8 @@
  */
 
 // Test / driver code (temporary). Eventually will get this from the server.
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
-  }
-];
+
+const urlTweets = '/tweets';
 
 function createTweetElement(tweetObj) {
 
@@ -114,17 +70,104 @@ function renderTweets(tweets) {
     // calls createTweetElement for each tweet
     // takes return value and appends it to the tweets container
 
-  for (const eachTweet of data) {
-  const $articleTweet = createTweetElement(eachTweet);
-  console.log($articleTweet);
-  $('#tweets-container').append($articleTweet);
-  console.log($('#tweets-container'));
-
+    for (const eachTweet of tweets) {
+    const $articleTweet = createTweetElement(eachTweet);
+    console.log($articleTweet);
+    $('#tweets-container').prepend($articleTweet);
+    console.log($('#tweets-container'));
   }
-
 }
+
+function loadTweets(url, loadAll) {
+  $.ajax({
+    method: 'GET',
+    url: url,
+  })
+  .done(response => {
+    if (loadAll === "all") {
+      renderTweets(response);
+    } else {
+      const $articleTweet = createTweetElement(response.pop());
+      $('#tweets-container').prepend($articleTweet);
+    }
+  })
+  .fail(error => {
+    console.log(`Error: ${error}`);
+  });
+};
 
 
 $(document).ready(function(){
-  renderTweets(data);
+  loadTweets(urlTweets, "all");
+
+  const request = url => {
+    // Create Ajax request using JQuery
+
+    // Set the options for the request
+    $.ajax({
+      method: 'POST',
+      url: url,
+      data: $('#form-submit').serialize(),
+    })
+      .done(response => {
+        console.log('Done!');
+        loadTweets(urlTweets, "some");
+        $('form')[0].reset();
+
+      })
+      .fail(error => {
+
+        console.log(`Error: ${error}`);
+
+      })
+      .always(() => {
+        console.log('Request completed.');
+      });
+  };
+
+  // renderTweets(urlTweets);
+
+  $('#submit-tweet').on('click', function(event) {
+    event.preventDefault();
+    // Creating and adding posts to the page
+    const inputLength = $('#form-submit textarea').val().length;
+
+    if (inputLength > 140) {
+
+      $('#over-char-limit').slideDown();
+      $('#empty-tweet').hide();
+
+    } else if (inputLength === 0) {
+
+      $('#empty-tweet').slideDown();
+      $('#over-char-limit').hide();
+
+    } else {
+
+      $('.new-tweet h5').hide();
+      request('/tweets');
+
+    }
+
+  })
+
+  $('#compose-button').on('click', function(event) {
+
+    if($(this).hasClass('active')){
+        $(this).removeClass('active')
+        $('#compose-button').css('color', 'black');
+        $('.new-tweet').hide();
+
+    } else {
+        $(this).addClass('active')
+        $('#compose-button').css('color', '#00a087');
+        $('.new-tweet').show();
+        //HIDE H5 ERROR MSGS
+        $('.new-tweet h5').hide();
+        $('#form-submit textarea').focus();
+
+    }
+
+  })
+
 })

@@ -25,3 +25,11 @@
     float: left;
     color: #e8fdff;
 }
+
+#nav-bar #compose-button {
+    color: #00a087;
+    padding: 18px;
+    margin: 10px 80px;
+    float: right;
+    border-radius: 5px;
+}

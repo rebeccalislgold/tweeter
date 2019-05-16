@@ -6,12 +6,18 @@
   border-radius: 5px;
   background-color: #C0C0C0;
   justify-content: flex-end;
+  display:none;
 }
+
+.new-tweet h5 {
+  color: red;
+  margin: 10px;
+}
+
 
 textarea {
   width: 96%;
   margin-left: 8px;
-
 }
 
 .new-tweet h2 {
@@ -86,6 +92,7 @@ article.tweet .tweet-header .profile-pics {
 article.tweet .content {
   margin: 8px;
   height: 40px;
+  word-break: break-word; /*this not working -- fix for long word tweets*/
 }
 
 article.tweet .tweet-footer {
