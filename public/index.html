@@ -16,6 +16,7 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -26,8 +27,10 @@
 
     <!-- Top nav bar (fixed) -->
     <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png">
-      <span class="header">Tweeter</span>
+      <div id="page-name">
+        <img class="logo" src="/images/bird.png">
+        <span class="header">Tweeter</span>
+      </div>
       <button id="compose-button" type="submit">✏️ COMPOSE</button>
     </nav>
 
@@ -39,29 +42,15 @@
         <h5 id="over-char-limit">Tweet cannot be more than 140 characters.</h5>
         <form id='form-submit' action='/tweets/' method='POST'>
           <textarea name="text" placeholder="What are you humming about?"></textarea>
-          <input id="submit-tweet" type="submit" value="Tweet">
-          <span class="counter">140</span>
+          <div class='footer-newTweet'>
+            <input id="submit-tweet" type="submit" value="Tweet">
+            <span class="counter">140</span>
+          </div>
         </form>
       </section>
       <section id="tweets-container">
-        <article class="tweet">
-          <div class="tweet-header">
-            <img class="profile-pics" src="/images/profile-1.jpg">
-            <h2>Bill Fields</h2>
-            <p class="tweeter-user">@MrFields</p>
-          </div>
-          <p class="content">This is my tweet!</p>
-          <div class="tweet-footer">
-            <footer>10 days ago</footer>
-            <div class='social-links'>
-              <i class="fab fa-font-awesome-flag"></i>
-              <i class="fas fa-retweet"></i>
-              <i class="fas fa-heart"></i>
-            </div>
-          </div>
-        </article>
+        <article class="tweet"></article>
       </section>
     </main>
-
   </body>
 </html>

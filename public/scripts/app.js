@@ -18,13 +18,14 @@ function createTweetElement(tweetObj) {
 
   const $h2Name = $('<h2>').text(tweetObj.user.name);
 
-  const $pUser = $('<p>').text(tweetObj.user.handle);
+  const $pUser = $('<p>').text(tweetObj.user.handle)
+    .addClass('tweeter-user');
 
   const $profilePic = $('<img>')
     .addClass('profile-pics')
     .attr('src', tweetObj.user.avatars.small);
 
-  $headerDiv.append($profilePic);
+  $h2Name.append($profilePic);
 
   $headerDiv.append($h2Name);
 
@@ -32,15 +33,16 @@ function createTweetElement(tweetObj) {
 
   $article.append($headerDiv);
 
-  const $pContent = $('<p>').text(tweetObj.content.text);
+  const $pContent = $('<p>').text(tweetObj.content.text)
+    .addClass('content');
 
   $article.append($pContent);
 
   const $footerDiv = $('<div>')
     .addClass('tweet-footer');
 
-  //update this to calculate age (today - created_at)
-  const $age = $('<footer>').text(tweetObj.created_at);
+  const $postDate = tweetObj.created_at;
+  const $age = $('<footer>').text(moment($postDate).fromNow());
 
   const $socialDiv = $('<div>')
     .addClass('social-links');
@@ -146,6 +148,7 @@ $(document).ready(function(){
 
       $('.new-tweet h5').hide();
       request('/tweets');
+      $('.counter').html(140);
 
     }
 
@@ -162,7 +165,6 @@ $(document).ready(function(){
         $(this).addClass('active')
         $('#compose-button').css('color', '#00a087');
         $('.new-tweet').show();
-        //HIDE H5 ERROR MSGS
         $('.new-tweet h5').hide();
         $('#form-submit textarea').focus();
 
