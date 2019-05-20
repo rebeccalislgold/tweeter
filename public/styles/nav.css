@@ -1,3 +1,4 @@
+/* Navigation bar - general styling */
 #nav-bar {
     position: fixed;
     top: 0;
@@ -13,29 +14,30 @@
     justify-content: space-between;
 }
 
+/* Tweeter logo */
 #nav-bar .logo {
     width: 80px;
     height: 80px;
-    margin-right: 5px;
-    float: left;
+    margin-right: 10px;
 }
 
+/* Page name (Tweeter) */
 #nav-bar .header {
     font-size: 2em;
-    margin-left: 5px;
-    line-height: 80px;
-    float: left;
+    display: flex;
+    align-items: center;
     color: #e8fdff;
 }
 
+/* Compose button */
 #nav-bar #compose-button {
     color: #00a087;
-    padding: 18px;
-    margin: 10px 80px;
-    float: right;
+    padding: 14px 18px 18px;
+    margin: 10px 0px;
     border-radius: 5px;
 }
 
+/* Page name (Tweeter) & logo */
 #nav-bar #page-name {
     display: flex;
     justify-content: flex-start;

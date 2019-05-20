@@ -1,5 +1,6 @@
+// Update the number of remaining characters as user types
 $(document).ready(function() {
-  // --- our code goes here ---
+
   $('.new-tweet form textarea').on("input", function() {
 
     const charsLeft = 140 - this.value.length;

@@ -4,10 +4,9 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Test / driver code (temporary). Eventually will get this from the server.
-
 const urlTweets = '/tweets';
 
+// Function to dynamically create HTML to display each existing tweet
 function createTweetElement(tweetObj) {
 
   const $article = $('<article>')
@@ -66,13 +65,10 @@ function createTweetElement(tweetObj) {
 
 }
 
-
+// Function to loops through tweets, call createTweetElement function for each tweet, then take return value and appends it to the tweets container
 function renderTweets(tweets) {
-  // loops through tweets
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
 
-    for (const eachTweet of tweets) {
+  for (const eachTweet of tweets) {
     const $articleTweet = createTweetElement(eachTweet);
     console.log($articleTweet);
     $('#tweets-container').prepend($articleTweet);
@@ -80,7 +76,10 @@ function renderTweets(tweets) {
   }
 }
 
+
+// Function to load tweets onto webpage
 function loadTweets(url, loadAll) {
+
   $.ajax({
     method: 'GET',
     url: url,
@@ -98,21 +97,18 @@ function loadTweets(url, loadAll) {
   });
 };
 
-
+// This will run only when page DOM is "ready": load tweets and button functionality.
 $(document).ready(function(){
+
   loadTweets(urlTweets, "all");
-
   const request = url => {
-    // Create Ajax request using JQuery
-
-    // Set the options for the request
     $.ajax({
       method: 'POST',
       url: url,
       data: $('#form-submit').serialize(),
     })
       .done(response => {
-        console.log('Done!');
+        console.log('Done');
         loadTweets(urlTweets, "some");
         $('form')[0].reset();
 
@@ -127,11 +123,10 @@ $(document).ready(function(){
       });
   };
 
-  // renderTweets(urlTweets);
 
+  // Creating and adding posts to page by selecting "Tweet" button
   $('#submit-tweet').on('click', function(event) {
     event.preventDefault();
-    // Creating and adding posts to the page
     const inputLength = $('#form-submit textarea').val().length;
 
     if (inputLength > 140) {
@@ -154,6 +149,8 @@ $(document).ready(function(){
 
   })
 
+
+  // Control visibility of New Tweet box with "Compose" button
   $('#compose-button').on('click', function(event) {
 
     if($(this).hasClass('active')){
@@ -164,7 +161,7 @@ $(document).ready(function(){
     } else {
         $(this).addClass('active')
         $('#compose-button').css('color', '#00a087');
-        $('.new-tweet').show();
+        $('.new-tweet').slideToggle("fast");
         $('.new-tweet h5').hide();
         $('#form-submit textarea').focus();
 

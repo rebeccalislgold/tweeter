@@ -1,8 +1,3 @@
-/*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
- */
 html {
   box-sizing: border-box;
   font-family: 'Roboto Condensed', sans-serif;
@@ -30,5 +25,95 @@ main.container {
   background-color: white;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 100px;
+  padding-top: 90px;
+}
+
+/*
+ * Saved tweets styling
+ */
+
+/* Saved tweet box */
+article.tweet {
+  width: 400px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  border: 1px solid grey;
+  opacity: 0.6;
+}
+
+/* Make saved tweet stand-out when hovering */
+article.tweet:hover {
+  opacity: 1;
+}
+
+/* Tweet header - User avatar, name, and username */
+article.tweet .tweet-header {
+  background-color: #eee;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Tweet header - User avatar and name */
+article.tweet h2 {
+  margin: 0px;
+}
+
+/* Tweet header - User avatar */
+article.tweet .tweet-header .profile-pics {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 8px;
+  border-radius: 5px;
+  border: 1px solid #C0C0C0;
+}
+
+/* Tweet header - Username */
+article.tweet .tweeter-user {
+  margin: 5px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+
+/* Tweet content */
+article.tweet .content {
+  padding: 8px;
+  word-break: break-word;
+}
+
+/* Tweet footer - time since post & social media links */
+article.tweet .tweet-footer {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 1px black;
+  border-top: 1px solid grey;
+  font-size: 10px;
+}
+
+/* social media links (grouped) */
+.social-links {
+  font-size: 14px;
+  opacity: 0;
+}
+
+/* social media links (individual) */
+.social-links i {
+  margin-right: 3px;
+}
+
+/* social media links - appear only when hovered */
+article.tweet:hover .social-links{
+  opacity: 1;
+  color: #40E0D0;
 }
